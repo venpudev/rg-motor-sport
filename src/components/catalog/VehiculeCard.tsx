@@ -40,8 +40,8 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
       </a>
       <div className="p-6">
         {/* <span className="text-sm text-gray-400">{vehicle.year}</span> */}
-        <h3 className="font-bold text-[12px] text-white">
-          <div className="h-6">
+        <h3 className="font-bold text-[11px] md:text-[12px] text-white">
+          <div className="h-10">
             <a
               href={`/vehiculos/${formatNameForURL(vehicle.name)}/${
                 vehicle.id
