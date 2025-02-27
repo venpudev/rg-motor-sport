@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Maps from '../components/maps/Maps.astro';
+import {FeaturedCars} from '../components/featured-car/FeaturedCars'
+import {ImageSlider} from '../components/image-slider/ImageSlider'
+import ViewStock from '../components/banners/ViewStock.astro';
+import Services from '../components/Services.astro';
+import Consignacion from '../components/Consignacion.astro';
+---
+
+<Layout 
+title="RG Motor Sports" 
+description="Todo lo que necesitas para tu 4x4 está aquí. Encuentra llantas, neumáticos, kits de levante, amortiguadores y más. ¡Contamos con servicio de instalación y despacho a todo Chile! ¡Cotiza ahora!">
+  <main>
+   <ImageSlider client:load/>
+     <FeaturedCars client:load/>
+     <ViewStock />
+     <Services />
+    <Consignacion />
+   <Testimonials />
+   <Maps />
+  </main>
+</Layout>
+
+
+

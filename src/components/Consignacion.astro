@@ -1,0 +1,95 @@
+---
+import {Image} from 'astro:assets';
+import credito from '../assets/images/credito-03.png';
+---
+
+
+<section class="container mx-auto bg-gray-50 overflow-hidden my-8 flex flex-col-reverse md:flex-row">
+    <!-- Imagen -->
+    <div class="w-full md:w-1/2 overflow-hidden md:h-auto">
+        <Image
+            src={credito}
+            alt="Entrega de llaves de auto"
+            class="w-full h-full object-cover object-center"
+            width={500}
+            height={500}
+        />
+    </div>
+
+    <!-- Contenido -->
+    <div class="w-full md:w-1/2 p-[30px] sm:p-[20px] md:p-[60px] flex flex-col justify-center">
+        <!-- Línea decorativa -->
+        <div class="h-2 bg-amber-600 w-16 mb-3"></div>
+
+        <!-- Título principal -->
+        <h2 class="text-2xl md:text-4xl font-bold text-primary mb-4 text-amber-600">Consignación</h2>
+
+        <!-- Subtítulo -->
+        <h3 class="text-xl font-semibold text-gray-800 mb-5">
+            Hacemos que vender tu auto sea rápido, fácil y seguro.
+        </h3>
+
+        <!-- Lista de beneficios -->
+        <div class="space-y-3 gap-5 pt-5">
+            <!-- Beneficio 1 -->
+            <div class="bg-white p-4 rounded-lg flex">
+                <div class="h-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#d97706" class="mr-2">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="font-semibold text-lg md:text-xl flex items-center">
+                        Nos encargamos de todo
+                    </h3>
+                    <p class="text-sm md:text-base">Publicamos, mostramos y gestionamos las ofertas.</p>
+                </div>
+            </div>
+
+            <!-- Beneficio 2 -->
+            <div class="bg-white p-4 rounded-lg flex">
+                <div class="h-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#d97706" class="mr-2">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="font-semibold text-lg md:text-xl flex items-center">
+                        Cuidamos tu vehículo
+                    </h3>
+                    <p class="text-sm md:text-base">Siempre limpio y visible para potenciales compradores.</p>
+                </div>
+            </div>
+
+            <!-- Beneficio 3 -->
+            <div class="bg-white p-4 rounded-lg flex">
+                <div class="h-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#d97706" class="mr-2">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="font-semibold text-lg md:text-xl flex items-center">
+                        Venta segura
+                    </h3>
+                    <p class="text-sm md:text-base">Revisamos la documentación y garantizamos un proceso transparente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Texto adicional -->
+        <p class="text-gray-700 font-medium my-4 text-lg md:text-2xl text-right">
+            Déjanos tu auto, nosotros lo vendemos por ti. ¡Sin complicaciones!
+        </p>
+
+        <!-- Botón -->
+        <div class="flex justify-end items-end">
+            <a
+                href="#consignar"
+                class="bg-black inline w-full md:w-48 text-white font-semibold text-lg py-2 px-4 rounded-lg mt-4 text-center"
+            >
+                CONSIGNA AQUÍ
+            </a>
+        </div>
+    </div>
+</section>

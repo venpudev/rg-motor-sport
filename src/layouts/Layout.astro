@@ -1,0 +1,54 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Whatsapp from '../components/whatsapp/Whatsapp.astro';
+
+import urlImage from '../../public/images/banners/nosotros-banner.webp';
+console.log(urlImage.src);
+interface Props {
+    title: string;
+    description: string;
+}
+const { slug } = Astro.params;
+const { title, description } = Astro.props;
+const url = `https://www.dobletraccionautomotriz.cl/${slug}`;
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={urlImage.src} />
+        <meta property="og:type" content="website" /> 
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={urlImage.src} />
+        
+        <link rel="canonical" href={url} />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{title}</title>
+    
+    </head>
+    <body>
+        <Header/>
+        <Whatsapp />
+        <slot />
+        <Footer />
+    </body>
+</html>
+
+
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: white;
+    }
+</style>
