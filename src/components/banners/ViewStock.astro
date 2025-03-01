@@ -5,7 +5,7 @@
 <div class="w-full h-24 flex justify-center items-center flex-col bg-black">
     <div class="flex justify-center items-center gap-2 flex-col md:flex-rows">
       <div class="flex items-center gap-4">
-        <a href="/catalogo" class="text-4xl font-bold text-white">VER STOCK COMPLETO </a>
+        <a href="/catalogo" class="text-xl md:text-4xl font-bold text-white">VER STOCK COMPLETO</a>
         <div class="arrow">
           <span></span>
           <span></span>
@@ -22,16 +22,15 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23e1e1e1' fill-opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M11 0l5 20H6l5-20zm42 31a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 72h40v4H0v-4zm0-8h31v4H0v-4zm20-16h20v4H20v-4zM0 56h40v4H0v-4zm63-25a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM53 41a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-30 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-28-8a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zM56 5a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zm-3 46a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM21 0l5 20H16l5-20zm43 64v-4h-4v4h-4v4h4v4h4v-4h4v-4h-4zM36 13h4v4h-4v-4zm4 4h4v4h-4v-4zm-4 4h4v4h-4v-4zm8-8h4v4h-4v-4z'/%3E%3C/g%3E%3C/svg%3E");
   }
 
-
   .arrow {
     position: relative;
     transform: translate(-50%, -50%);
     transform: rotate(-90deg);
     cursor: pointer;
-    margin-left:40px;
-}
+    margin-left: 40px;
+  }
 
-.arrow span {
+  .arrow span {
     display: block;
     width: 1.5vw;
     height: 1.5vw;
@@ -40,27 +39,44 @@
     transform: rotate(45deg);
     margin: -10px;
     animation: animate 2s infinite;
-}
+  }
 
-.arrow span:nth-child(2) {
+  .arrow span:nth-child(2) {
     animation-delay: -0.2s;
-}
+  }
 
-.arrow span:nth-child(3) {
+  .arrow span:nth-child(3) {
     animation-delay: -0.4s;
-}
+  }
 
-@keyframes animate {
+  @keyframes animate {
     0% {
-        opacity: 0;
-        transform: rotate(45deg) translate(-20px, -20px);
+      opacity: 0;
+      transform: rotate(45deg) translate(-20px, -20px);
     }
     50% {
-        opacity: 1;
+      opacity: 1;
     }
     100% {
-        opacity: 0;
-        transform: rotate(45deg) translate(20px, 20px);
+      opacity: 0;
+      transform: rotate(45deg) translate(20px, 20px);
     }
-}
+  }
+
+  @media (max-width: 768px) {
+    .arrow {
+      margin-left: 0;
+    }
+    .arrow span {
+      width: 3vw;
+      height: 3vw;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .arrow span {
+      width: 4vw;
+      height: 4vw;
+    }
+  }
 </style>

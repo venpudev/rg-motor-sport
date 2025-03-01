@@ -19,13 +19,13 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
       <div className="absolute top-2 right-3">
         {vehicle.available ? (
           <div className="flex items-center justify-center gap-2">
-            <div className="bg-green-500 text-white px-2 py-1 rounded-full text-[9px] font-bold uppercase">
+            <div className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
               Disponible
             </div>
           </div>
         ) : (
           <div className="flex items-center justify-center gap-2">
-            <div className="bg-red-500 text-white px-2 py-1 rounded-full text-[9px] font-bold uppercase">
+            <div className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300">
               Vendido
             </div>
           </div>
@@ -40,7 +40,7 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
       </a>
       <div className="p-6">
         {/* <span className="text-sm text-gray-400">{vehicle.year}</span> */}
-        <h3 className="font-bold text-[11px] md:text-[12px] text-white">
+        <h3 className="font-bold text-[11px] md:text-[14px] text-white uppercase">
           <div className="h-10">
             <a
               href={`/vehiculos/${formatNameForURL(vehicle.name)}/${

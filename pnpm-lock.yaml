@@ -17,6 +17,12 @@ importers:
       '@astrojs/vercel':
         specifier: ^8.0.2
         version: 8.1.0(astro@5.4.0(@types/node@22.13.5)(jiti@1.21.7)(rollup@4.34.8)(typescript@5.7.3)(yaml@2.7.0))(react@19.0.0)(rollup@4.34.8)
+      '@fontsource-variable/montserrat':
+        specifier: ^5.1.1
+        version: 5.1.1
+      '@fontsource-variable/raleway':
+        specifier: ^5.1.1
+        version: 5.1.1
       '@types/react':
         specifier: ^19.0.10
         version: 19.0.10
@@ -335,6 +341,12 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource-variable/montserrat@5.1.1':
+    resolution: {integrity: sha512-eHmSruS3B+4wVaHk6ShNUJj1MbWEohOuriwN/oYR2VY8jRS83a5SKQeG1wu4Eku3v3f5cXTIbfd1tHeQ7GXkiA==}
+
+  '@fontsource-variable/raleway@5.1.1':
+    resolution: {integrity: sha512-PWApLoy2/nmrU+1KjtbEAB3kZFbb/kevzkAS57Pt9TAf3OybfCPpdevlT2hQI9lQEclYHMWXEHBL6vP7MNmjMg==}
 
   '@iconify/tools@4.1.1':
     resolution: {integrity: sha512-Hybu/HGhv6T8nLQhiG9rKx+ekF7NNpPOEQAy7JRSKht3s3dcFSsPccYzk24Znc9MTxrR6Gak3cg6CPP5dyvS2Q==}
@@ -2871,6 +2883,10 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.0':
     optional: true
+
+  '@fontsource-variable/montserrat@5.1.1': {}
+
+  '@fontsource-variable/raleway@5.1.1': {}
 
   '@iconify/tools@4.1.1':
     dependencies:

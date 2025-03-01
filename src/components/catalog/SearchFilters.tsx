@@ -32,19 +32,19 @@ export function SearchFilters({
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 bg-gray-100 p-5 rounded-lg">
       <input
         type="text"
         placeholder="Buscar vehículos..."
         value={searchQuery}
         onChange={handleSearchChange}
-        className="p-2 rounded-md border border-gray-700 bg-gray-800 text-white"
+        className="p-2 rounded-md border border-gray-300 bg-white text-black"
       />
 
       <select
         value={selectedBrand}
         onChange={handleBrandChange}
-        className="p-2 rounded-md border border-gray-700 bg-gray-800 text-white"
+        className="p-2 rounded-md border border-gray-300 bg-white text-black"
       >
         <option value="">Todas las marcas</option>
         {brands.map((brand) => (
@@ -57,7 +57,7 @@ export function SearchFilters({
       <select
         value={sortOrder}
         onChange={handleSortChange}
-        className="p-2 rounded-md border border-gray-700 bg-gray-800 text-white"
+        className="p-2 rounded-md border border-gray-300 bg-white text-black"
       >
         <option value="desc">Mayor precio</option>
         <option value="asc">Menor precio</option>

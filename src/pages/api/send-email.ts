@@ -4,15 +4,34 @@ import { Resend } from "resend";
 export const prerender = false;
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
+const keyCaptcha = import.meta.env.CAPTCHA_KEY;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
     const { name, email, phone, message } = data;
 
+    const recaptchaURL = "https://www.google.com/recaptcha/api/siteverify";
+    const requestHeaders = {
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
+
+    const requestBody = new URLSearchParams({
+      secret: keyCaptcha, // Esto puede ser una variable de entorno
+      response: data.recaptcha, // El token pasado desde el cliente
+    });
+
+    const response = await fetch(recaptchaURL, {
+      method: "POST",
+      headers: requestHeaders,
+      body: requestBody.toString(),
+    });
+
+    const responseData = await response.json();
+
     const { data: emailData, error } = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: "gabriel.vianna@dobletraccion.cl", // cambiar por el email de la empresa
+      to: "sebaprogramer@gmail.com", // cambiar por el email de la empresa
       subject: `(Sitio web) Nuevo mensaje de contacto de ${name}`,
       html: `
         <h2>Nuevo mensaje de contacto sitio web</h2>
@@ -25,16 +44,22 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     if (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({ error: error.message, responseData }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    return new Response(JSON.stringify({ success: true, data: emailData }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ success: true, data: emailData, responseData }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
     return new Response(
       JSON.stringify({ error: "Error interno del servidor" }),

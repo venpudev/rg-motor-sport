@@ -37,12 +37,13 @@ export const FeaturedCars: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-16 text-black">
+    <section className="py-16 md:py-[150px] text-black">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-6xl font-bold text-center py-3">
-          Destacados
+        <div className="h-2 bg-amber-600 w-16 mb-3"></div>
+        <h2 className="text-3xl md:text-5xl font-bold text-left py-3">
+          DESTACADOS
         </h2>
-        <p className="text-xl text-center mb-8">
+        <p className="text-left mb-12 text-gray-600">
           Tenemos una amplia variedad de vehículos usados y de todas las marcas
         </p>
 

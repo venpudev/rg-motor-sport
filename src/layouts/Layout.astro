@@ -3,6 +3,9 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Whatsapp from '../components/whatsapp/Whatsapp.astro';
 
+// Supports weights 100-900
+import '@fontsource-variable/montserrat';
+
 import urlImage from '../../public/images/banners/nosotros-banner.webp';
 console.log(urlImage.src);
 interface Props {
@@ -11,7 +14,7 @@ interface Props {
 }
 const { slug } = Astro.params;
 const { title, description } = Astro.props;
-const url = `https://www.dobletraccionautomotriz.cl/${slug}`;
+const url = `https://www.rgmotorsport.cl/${slug}`;
 ---
 
 <!doctype html>
@@ -32,6 +35,7 @@ const url = `https://www.dobletraccionautomotriz.cl/${slug}`;
         <link rel="canonical" href={url} />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      
         <title>{title}</title>
     
     </head>
@@ -50,5 +54,9 @@ const url = `https://www.dobletraccionautomotriz.cl/${slug}`;
         padding: 0;
         box-sizing: border-box;
         background-color: white;
+    }
+
+    body {
+        font-family: 'Montserrat Variable', sans-serif;
     }
 </style>

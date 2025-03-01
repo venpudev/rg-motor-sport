@@ -58,8 +58,8 @@ export function VehicleCatalog() {
 
     // Apply sort
     filtered.sort((a, b) => {
-      const priceA = Number(a.price);
-      const priceB = Number(b.price);
+      const priceA = parseFloat(a.price) || 0;
+      const priceB = parseFloat(b.price) || 0;
       return sortOrder === "desc" ? priceB - priceA : priceA - priceB;
     });
 
