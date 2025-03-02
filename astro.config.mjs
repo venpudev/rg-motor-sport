@@ -9,6 +9,8 @@ import icon from "astro-icon";
 export default defineConfig({
   integrations: [icon(), tailwind(), react()],
   output: "server",
-  adapter: vercel(),
+  adapter: vercel({
+    imageService: true,
+  }),
   prefetch: true,
 });
