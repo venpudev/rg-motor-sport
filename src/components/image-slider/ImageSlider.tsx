@@ -9,7 +9,7 @@ import "swiper/css/effect-fade";
 export const ImageSlider = () => {
   const slides = slidesData.slides;
   return (
-    <div className="container mx-auto h-[500px] relative mt-[150px] rounded-xl overflow-hidden">
+    <div className="container mx-auto h-[500px] relative mt-[150px] rounded-0 md:rounded-xl overflow-hidden p-4 md:p-0">
       <Swiper
         modules={[Autoplay, Navigation, Pagination, EffectFade]}
         effect="fade"

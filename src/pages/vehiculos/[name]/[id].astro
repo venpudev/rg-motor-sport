@@ -36,7 +36,7 @@ const formattedPrice = formatPrice(vehicle.price);
 <Layout {...seoData}>
   <section class="bg-white text-gray-100 py-36">
     <div class="container mx-auto md:px-0 px-5">
-      <div class="text-left pl-3 mb-10">
+      <div class="text-left pl-3 md:pl-0 mb-10">
         <div>
           {vehicle.available ? (
             <div class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm inline-block">
@@ -95,7 +95,7 @@ const formattedPrice = formatPrice(vehicle.price);
                   <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wide">Descripción:</h3>
                   <ul class="list-disc pl-5 text-lg font-semibold text-gray-200 mt-5">
                     {vehicle.description ? (
-                      vehicle.description.split(/[*•]+/).map((item) => (
+                      vehicle.description.split(/[*•°●]+/).map((item) => (
                         <li>{item.trim()}</li>
                       ))
                     ) : (

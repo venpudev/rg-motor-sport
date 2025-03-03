@@ -15,7 +15,7 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
   const formattedPrice = formatPrice(vehicle.price);
 
   return (
-    <div className="relative bg-black rounded-lg shadow-lg overflow-hidden h-full">
+    <div className="relative bg-black rounded-lg shadow-lg h-full">
       <div className="absolute top-2 right-3">
         {vehicle.available ? (
           <div className="flex items-center justify-center gap-2">
@@ -35,7 +35,7 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
         <img
           src={vehicle.imageUrl}
           alt={vehicle.name}
-          className="w-full h-60 object-cover"
+          className="w-full h-60 object-cover rounded-lg"
         />
       </a>
       <div className="p-6">

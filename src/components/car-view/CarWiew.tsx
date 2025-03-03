@@ -14,7 +14,7 @@ export const CarWiew: React.FC<SwiperComponentProps> = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-2">
+    <div className="w-full max-w-5xl mx-auto">
       <Swiper
         modules={[Navigation, Autoplay, Thumbs]}
         spaceBetween={2} /* Espaciado entre slides */
@@ -47,7 +47,7 @@ export const CarWiew: React.FC<SwiperComponentProps> = ({ images }) => {
               <img
                 src={img.imageUrl}
                 alt={img.alt || `Imagen ${index + 1}`}
-                className="w-full h-56 sm:h-50 md:h-[550px] shadow-md hover:shadow-lg object-cover cursor-pointer"
+                className="w-full h-56 sm:h-50 md:h-[550px] shadow-md hover:shadow-lg object-cover cursor-pointer rounded-lg"
               />
             </SwiperSlide>
           ))
@@ -87,7 +87,7 @@ export const CarWiew: React.FC<SwiperComponentProps> = ({ images }) => {
             <img
               src={img.imageUrl}
               alt={img.alt || `Thumbnail ${index + 1}`}
-              className="w-full h-20 md:h-36 object-cover  cursor-pointer"
+              className="w-full h-20 md:h-36 object-cover cursor-pointer rounded-lg"
             />
           </SwiperSlide>
         ))}
