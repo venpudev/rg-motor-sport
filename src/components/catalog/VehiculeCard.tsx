@@ -14,8 +14,26 @@ interface VehicleCardProps {
 export function VehicleCard({ vehicle }: VehicleCardProps) {
   const formattedPrice = formatPrice(vehicle.price);
 
+  const vehicleProperties = [
+    {
+      icon: <FaRoad />,
+      label: (vehicle: Datum) =>
+        vehicle.miles ? `${vehicle.miles} KM` : "Sin dato",
+    },
+    {
+      icon: <BsFillFuelPumpFill />,
+      label: (vehicle: Datum) =>
+        vehicle.fuelType ? vehicle.fuelType : "Sin dato",
+    },
+    {
+      icon: <TbManualGearboxFilled />,
+      label: (vehicle: Datum) =>
+        vehicle.transmission ? vehicle.transmission : "Sin dato",
+    },
+  ];
+
   return (
-    <div className="relative bg-black rounded-lg shadow-lg h-full">
+    <div className="relative bg-gray-200 bg-opacity-20 rounded-lg h-full ">
       <div className="absolute top-2 right-3">
         {vehicle.available ? (
           <div className="flex items-center justify-center gap-2">
@@ -35,13 +53,13 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
         <img
           src={vehicle.imageUrl}
           alt={vehicle.name}
-          className="w-full h-60 object-cover rounded-lg"
+          className="w-full h-60 object-cover rounded-t-lg"
         />
       </a>
-      <div className="p-6">
+      <div className="px-3 py-5">
         {/* <span className="text-sm text-gray-400">{vehicle.year}</span> */}
-        <h3 className="font-bold text-[11px] md:text-[14px] text-white uppercase">
-          <div className="h-10">
+        <h3 className="font-bold text-[11px] md:text-[14px] text-black uppercase underline">
+          <div className="h-11 overflow-hidden">
             <a
               href={`/vehiculos/${formatNameForURL(vehicle.name)}/${
                 vehicle.id
@@ -51,28 +69,20 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
             </a>
           </div>
         </h3>
-        <span className="text-xl font-bold text-amber-500">
+        <span className="text-xl font-bold text-gray-900">
           {formattedPrice}
         </span>
         <div className="flex flex-wrap gap-2">
-          <span className="relative px-2 py-1 w-fit text-center bg-white font-bold text-[9px] text-[#1C3328] rounded-full uppercase inline-flex justify-center items-center mt-3.5 gap-2">
-            <div className="flex items-center gap-1">
-              <FaRoad /> {vehicle.miles ? vehicle.miles + "KM" : "Sin dato"}
-            </div>
-          </span>
-
-          <span className="relative px-2 py-1 w-fit text-center bg-white font-bold text-[9px] text-[#1C3328] rounded-full uppercase inline-flex justify-center  items-center mt-3.5">
-            <div className="flex items-center gap-1">
-              <BsFillFuelPumpFill />
-              {vehicle.fuelType ? vehicle.fuelType : "Sin dato"}
-            </div>
-          </span>
-          <span className="relative px-2 py-1 w-fit text-center bg-white font-bold text-[9px] text-[#1C3328] rounded-full uppercase inline-flex justify-center  items-center mt-3.5">
-            <div className="flex items-center gap-1">
-              <TbManualGearboxFilled />
-              {vehicle.transmission ? vehicle.transmission : "Sin dato"}
-            </div>
-          </span>
+          {vehicleProperties.map((property, index) => (
+            <span
+              key={index}
+              className="relative px-1 py-2 w-fit text-center text-[11px]  inline-flex justify-center items-center  gap-2"
+            >
+              <div className="flex items-center gap-1">
+                {property.icon} {property.label(vehicle)}
+              </div>
+            </span>
+          ))}
         </div>
       </div>
     </div>
