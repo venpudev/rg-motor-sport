@@ -33,13 +33,13 @@ export const ImageSlider = () => {
                 <h1 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-center md:text-left bg-amber-600 bg-opacity-80 p-4 max-w-[100%] md:max-w-[550px] rounded-lg">
                   {slide.title}
                 </h1>
-
+                git
                 <div className="flex flex-col md:flex-row gap-4">
                   <a
                     href="/contacto"
                     className="bg-amber-600 text-white px-6 py-3 rounded-md font-bold hover:bg-amber-500 text-center w-full md:w-auto"
                   >
-                    COMPRA TU AUTO
+                    CONSIGNA TU AUTO
                   </a>
                   <a
                     href="/catalogo"
