@@ -33,7 +33,7 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
   ];
 
   return (
-    <div className="relative bg-gray-200 bg-opacity-20 rounded-lg h-full ">
+    <div className="relative bg-black rounded-lg h-full ">
       <div className="absolute top-2 right-3">
         {vehicle.available ? (
           <div className="flex items-center justify-center gap-2">
@@ -58,7 +58,7 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
       </a>
       <div className="px-3 py-5">
         {/* <span className="text-sm text-gray-400">{vehicle.year}</span> */}
-        <h3 className="font-bold text-[11px] md:text-[14px] text-black uppercase underline">
+        <h3 className="font-bold text-[11px] md:text-[14px] text-white uppercase">
           <div className="h-11 overflow-hidden">
             <a
               href={`/vehiculos/${formatNameForURL(vehicle.name)}/${
@@ -69,14 +69,12 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
             </a>
           </div>
         </h3>
-        <span className="text-xl font-bold text-gray-900">
-          {formattedPrice}
-        </span>
+        <span className="text-xl font-bold text-white">{formattedPrice}</span>
         <div className="flex flex-wrap gap-2">
           {vehicleProperties.map((property, index) => (
             <span
               key={index}
-              className="relative px-1 py-2 w-fit text-center text-[11px]  inline-flex justify-center items-center  gap-2"
+              className="relative px-1 py-2 w-fit text-center text-white text-[11px]  inline-flex justify-center items-center  gap-2"
             >
               <div className="flex items-center gap-1">
                 {property.icon} {property.label(vehicle)}
