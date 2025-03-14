@@ -2,9 +2,7 @@
 import WhatsappIcon from "../icons/WhatsappIcon.astro";
 
 const phoneNumbers = [
-  { number: '+56940403988', label: 'Kennedy' },
-  { number: '+56933806123', label: 'Vitacura' },
-  { number: '+56923806177', label: 'Concepción' }
+  { number: '+56965991691', label: 'Servicio cliente' },
 ];
 
 ---
@@ -17,7 +15,7 @@ const phoneNumbers = [
 <div class="phone-list flex" id="phone-list" style="display: none; z-index: 10;">
   {phoneNumbers.map(({ number, label }) => (
     <div class="flex items-center border-b-2 border-gray-100">
-      <small class="text-xs text-gray-500">📞 Sucursal -</small>
+      <small class="text-xs text-gray-500">🟢</small>
       <a href={`https://wa.me/${number}`} target="_blank" class="text-sm text-blue-500">{label}</a>
     </div>
   ))}
