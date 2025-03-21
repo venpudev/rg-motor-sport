@@ -1,0 +1,46 @@
+---
+import testimonialsData from '../../data/testimonials.json';
+import StarRating from '../rating-stars/StarRating.astro';
+
+// Leer el arreglo
+const testimonials = testimonialsData.testimonials;
+---
+
+<section class="py-16 md:py-[150px] bg-gray-50 ">
+  <div class="container mx-auto px-4">
+    <div class="h-2 bg-amber-600 w-16 mb-3 mx-auto"></div>
+    <h2 class="text-3xl md:text-5xl font-bold text-center py-3">TESTIMONIOS</h2>
+    <p class="text-center mb-12 text-gray-600 px-2 md:px-[240px]">
+      Descubre lo que nuestros clientes tienen que decir sobre su experiencia con nosotros.
+      Cada testimonio refleja nuestro compromiso con la calidad, el servicio personalizado y la
+      satisfacción total.
+    </p>
+
+    <div class="testimonials-carousel relative overflow-hidden">
+      <div class="testimonials-track flex transition-transform duration-500">
+        {testimonials.concat(testimonials).map((testimonial) => (
+          <div class="testimonial-slide w-full md:w-1/3 flex-shrink-0 px-4">
+            <div class="bg-white p-6 rounded-lg shadow-lg h-full">
+              <div class="flex items-center mb-4">
+                <img src={testimonial.image} alt={testimonial.name} class="w-12 h-12 rounded-full mr-4 object-cover aspect-square"/>
+                <h3 class="font-bold">{testimonial.name}
+                  <StarRating rating={testimonial.rating} />
+                </h3>
+              </div>
+              <p class="text-gray-600 italic">"{testimonial.text}"</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+
+  @media (max-width: 768px) {
+    .testimonial-slide {
+      width: 100%;
+    }
+  }
+</style>
