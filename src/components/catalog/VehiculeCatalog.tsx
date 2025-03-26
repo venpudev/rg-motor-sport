@@ -33,7 +33,11 @@ export function VehicleCatalog() {
 
   // Extract brands from vehicles
   const brands = useMemo(() => {
-    const brandSet = new Set<string>(vehicles.map((v: any) => v.brand));
+    const brandSet = new Set<string>(
+      vehicles
+        .filter((v) => v.brand && typeof v.brand === "string")
+        .map((v) => v.brand as string)
+    );
     return [...brandSet].sort((a, b) => a.localeCompare(b));
   }, [vehicles]);
 
