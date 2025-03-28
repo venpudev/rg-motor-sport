@@ -32,7 +32,7 @@ export function SearchFilters({
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 bg-gray-100 p-5 rounded-lg">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 bg-gray-50 p-2 rounded-lg">
       <input
         type="text"
         placeholder="Buscar vehículos..."
