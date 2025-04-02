@@ -29,9 +29,32 @@ export const POST: APIRoute = async ({ request }) => {
 
     const responseData = await response.json();
 
+    if (!responseData.success) {
+      return new Response(
+        JSON.stringify({
+          error: "Falló la verificación de reCAPTCHA",
+          responseData,
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    if (!name || !email || !message || !data.recaptcha) {
+      return new Response(
+        JSON.stringify({ error: "Faltan campos obligatorios" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
     const { data: emailData, error } = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: "sebaprogramer@gmail.com", // cambiar por el email de la empresa
+      to: "rgaytan.asesorias@gmail.com", // cambiar por el email de la empresa
       subject: `(Sitio web) Nuevo mensaje de contacto de ${name}`,
       html: `
         <h2>Nuevo mensaje de contacto sitio web</h2>
