@@ -9,9 +9,10 @@ import '@fontsource-variable/montserrat';
 interface Props {
     title: string;
     description: string;
+    image?: string;
 }
 const { slug } = Astro.params;
-const { title, description } = Astro.props;
+const { title, description, image = '/images/social-share.webp' } = Astro.props;
 const url = `https://www.rgmotorsport.cl/${slug}`;
 ---
 
@@ -22,13 +23,16 @@ const url = `https://www.rgmotorsport.cl/${slug}`;
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-
+        <meta property="og:image" content={`https://www.rgmotorsport.cl${image}`} />
+        <meta property="og:image:alt" content={title} />
+        <meta property="og:url" content={url} />
         <meta property="og:type" content="website" /> 
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-
+        <meta name="twitter:image" content={`https://www.rgmotorsport.cl${image}`} />
+        <meta name="twitter:image:alt" content={title} />
         
         <link rel="canonical" href={url} />
         <meta name="viewport" content="width=device-width" />

@@ -22,14 +22,17 @@ if (!response || !response.status) {
 // Obtenemos los datos del vehículo
 const vehicle = response.data;
 
+// Formateamos el precio una sola vez
+const displayPrice = formatPrice(vehicle.price);
+
 // Datos para SEO
 const seoData = {
-  title: `${vehicle.name} - Detalles`,
-  description: `Compra el ${vehicle.name}, un vehículo con ${vehicle.miles} km, transmisión ${vehicle.transmission} y motor ${vehicle.fuelType}.`,
-  image: vehicle.imageUrl,
+  title: `${vehicle.name} - RG Motor Sport`,
+  description: `${vehicle.name} - ${displayPrice} - ${vehicle.miles}km - ${vehicle.transmission} - ${vehicle.fuelType}. Disponible en RG Motor Sport, Antofagasta.`,
+  image: vehicle.imageUrl || vehicle.imageGallery?.[0]?.imageUrl || '/images/social-share.webp'
 };
 
-// Formateamos el precio
+// Formateamos el precio para mostrar
 const formattedPrice = formatPrice(vehicle.price);
 ---
 
@@ -51,7 +54,7 @@ const formattedPrice = formatPrice(vehicle.price);
         <h1 class="text-xl md:text-3xl font-extrabold text-black mt-5">{vehicle.name}</h1>
         <div class="mt-2">
           <small class="text-sm block text-gray-800">Precio:</small>
-          <p class="text-xl md:text-2xl text-amber-600 font-bold">{formattedPrice ? formattedPrice : 'Precio No disponible'}</p>
+          <p class="text-xl md:text-2xl text-amber-600 font-bold">{displayPrice || 'Precio No disponible'}</p>
         </div>
       </div>
   
