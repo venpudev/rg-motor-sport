@@ -6,8 +6,6 @@ import Whatsapp from '../components/whatsapp/Whatsapp.astro';
 // Supports weights 100-900
 import '@fontsource-variable/montserrat';
 
-import urlImage from '../../public/images/logo/logoRG.webp';
-console.log(urlImage.src);
 interface Props {
     title: string;
     description: string;
@@ -24,13 +22,13 @@ const url = `https://www.rgmotorsport.cl/${slug}`;
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={urlImage.src} />
+
         <meta property="og:type" content="website" /> 
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={urlImage.src} />
+
         
         <link rel="canonical" href={url} />
         <meta name="viewport" content="width=device-width" />
