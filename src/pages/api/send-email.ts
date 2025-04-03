@@ -6,9 +6,10 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
-    const { name, email, phone, message, recaptcha } = data;
+    console.log("datos desde el front", data);
+    const { name, email, phone, message } = data;
 
-    if (!name || !email || !message || !recaptcha) {
+    if (!name || !email || !message) {
       return new Response(
         JSON.stringify({ error: "Faltan campos obligatorios" }),
         {
