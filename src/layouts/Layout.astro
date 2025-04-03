@@ -16,11 +16,11 @@ interface Props {
 const siteUrl = 'https://www.rgmotorsport.cl';
 
 const { slug } = Astro.params;
-const { title, description, image = '/images/social-share.webp' } = Astro.props;
+const { title, description, image = '/images/rg-social.png' } = Astro.props;
 
 // Aseguramos que la URL de la imagen sea absoluta
 const getFullImageUrl = (imageUrl: string) => {
-    if (!imageUrl) return `${siteUrl}/images/social-share.webp`;
+    if (!imageUrl) return `${siteUrl}/images/rg-social.png`;
     if (imageUrl.startsWith('http')) return imageUrl;
     return `${siteUrl}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
 };
@@ -72,9 +72,6 @@ const ogImage = getFullImageUrl(image);
         padding: 0;
         box-sizing: border-box;
         background-color: white;
-    }
-
-    body {
         font-family: 'Montserrat Variable', sans-serif;
     }
 </style>

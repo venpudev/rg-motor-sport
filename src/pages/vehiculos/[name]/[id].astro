@@ -25,21 +25,11 @@ const vehicle = response.data;
 // Formateamos el precio una sola vez
 const displayPrice = formatPrice(vehicle.price);
 
-// URL base del sitio
-const siteUrl = 'https://www.rgmotorsport.cl';
-
-// Aseguramos que la URL de la imagen sea absoluta
-const getFullImageUrl = (imageUrl: string) => {
-  if (!imageUrl) return `${siteUrl}/images/social-share.webp`;
-  if (imageUrl.startsWith('http')) return imageUrl;
-  return `${siteUrl}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
-};
-
 // Datos para SEO
 const seoData = {
   title: `${vehicle.name} - RG Motor Sport`,
   description: `${vehicle.name} - ${displayPrice} - ${vehicle.miles}km - ${vehicle.transmission} - ${vehicle.fuelType}. Disponible en RG Motor Sport, Antofagasta.`,
-  image: getFullImageUrl(vehicle.imageUrl || (vehicle.imageGallery?.[0]?.imageUrl))
+  image: vehicle.imageUrl || vehicle.imageGallery?.[0]?.imageUrl || '/images/social-share.webp'
 };
 
 // Formateamos el precio para mostrar
