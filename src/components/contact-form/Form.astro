@@ -1,160 +1,155 @@
 ---
 
-const apiCatpcha = import.meta.env.CAPTCHA_KEY;
+const apiCatpcha = import.meta.env.SITE_KEY;
 
 ---
 <form id="contact-form">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-      <div>
-        <label for="name" class="block text-gray-700 font-medium mb-2">Nombre</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-        />
-      </div>
-      <div>
-        <label for="phone" class="block text-gray-700 font-medium mb-2">Teléfono</label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          required
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-        />
-      </div>
-    </div>
-    <div class="mb-4">
-      <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div>
+      <label for="name" class="block text-gray-700 font-medium mb-2">Nombre</label>
       <input
-        type="email"
-        id="email"
-        name="email"
+        type="text"
+        id="name"
+        name="name"
         required
         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
       />
     </div>
-    <div class="mb-4">
-      <label for="message" class="block text-gray-700 font-medium mb-2">Mensaje</label>
-      <textarea
-        id="message"
-        name="message"
-        rows="4"
+    <div>
+      <label for="phone" class="block text-gray-700 font-medium mb-2">Teléfono</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
         required
         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-      ></textarea>
+      />
     </div>
-    <div id="form-status" class="mb-4 hidden">
-      <p class="text-center font-medium"></p>
-    </div>
+  </div>
+  <div class="mb-4">
+    <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+    />
+  </div>
+  <div class="mb-4">
+    <label for="message" class="block text-gray-700 font-medium mb-2">Mensaje</label>
+    <textarea
+      id="message"
+      name="message"
+      rows="4"
+      required
+      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+    ></textarea>
+  </div>
+  <div id="form-status" class="mb-4 hidden">
+    <p class="text-center font-medium"></p>
+  </div>
 
-    <!-- Contenedor para el reCAPTCHA -->
-    <div class="mb-4">
-      <div 
-        class="g-recaptcha" 
-        data-sitekey={apiCatpcha}
-        data-callback="onCaptchaSuccess"
-        data-expired-callback="onCaptchaExpired"
-      ></div>
-    </div>
+  <!-- Contenedor para hCaptcha -->
+  <div class="mb-4">
+    <div
+      class="h-captcha"
+      data-sitekey={apiCatpcha}
+      data-callback="onCaptchaSuccess"
+      data-expired-callback="onCaptchaExpired"
+    ></div>
+  </div>
 
-    <button
-      type="submit"
-      class="w-full bg-yellow-500 text-black px-6 py-3 rounded-lg text-lg font-semibold hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors"
-    >
-      Enviar Mensaje
-    </button>
-  </form>
+  <button
+    type="submit"
+    class="w-full bg-yellow-500 text-black px-6 py-3 rounded-lg text-lg font-semibold hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors"
+  >
+    Enviar Mensaje
+  </button>
+</form>
 
-  <!-- Cargar el script de reCAPTCHA -->
-  <script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- Cargar script de hCaptcha -->
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
-  <script is:inline>
-  
-    const form = document.getElementById('contact-form');
+<script is:inline>
+  const form = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+  const statusText = formStatus?.querySelector('p');
+
+  let captchaToken = '';
+
+  window.onCaptchaSuccess = function(token) {
+    window.captchaToken = token;
     const formStatus = document.getElementById('form-status');
     const statusText = formStatus?.querySelector('p');
-    let captchaToken = '';
-      
-      // Callback de reCAPTCHA que se invoca cuando el usuario completa el captcha
-      function onCaptchaSuccess(token) {
-        captchaToken = token;
-        // Este callback (funciones) se invoca cuando el usuario completa el captcha
-        if (statusText && formStatus) {
-          statusText.textContent = '';
-          formStatus.classList.add('hidden');
-        }
-      }
+    if (statusText && formStatus) {
+      statusText.textContent = '';
+      formStatus.classList.add('hidden');
+    }
+  }
 
-      // Callback opcional para manejar el caso de expiración del token
-      function onCaptchaExpired() {
-        captchaToken = '';
-      }
-  
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-  
-      if (!form || !formStatus || !statusText) return;
-  
-      const formData = new FormData(form);
-      // Convertir el FormData a un objeto
-      const data = Object.fromEntries(formData.entries());
-  
-      // Agregar el token de reCAPTCHA al objeto de datos
-      data.captchaToken = captchaToken;
-  
-      // Opcional: Verificar que se haya obtenido un token
-      if (!captchaToken) {
-        statusText.textContent = 'Por favor, completa el reCAPTCHA.';
-        formStatus.className = 'mb-4 text-red-600';
-        return;
-      }
-  
-      // Deshabilitar el formulario y mostrar estado de carga
-      form.querySelectorAll('input, textarea, button').forEach((el) => {
-        el.setAttribute('disabled', 'true');
-      });
+  window.onCaptchaExpired = function() {
+    window.captchaToken = '';
+    const formStatus = document.getElementById('form-status');
+    const statusText = formStatus?.querySelector('p');
+    if (statusText && formStatus) {
+      statusText.textContent = 'Por favor, completa el hCaptcha.';
+      formStatus.className ='mb-4 text-red-600';
       formStatus.classList.remove('hidden');
-      statusText.textContent = 'Enviando mensaje...';
-      formStatus.className = 'mb-4 text-gray-600';
-  
-      try {
-        const response = await fetch('/api/send-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-  
-        const result = await response.json();
-  
-        if (result.error) {
-          throw new Error(result.error);
-        }
-  
-        // Mostrar mensaje de éxito
-        form.reset();
-        statusText.textContent = '¡Mensaje enviado con éxito!';
-        formStatus.className = 'mb-4 text-green-600';
-  
+    }
+  }
 
-        // Resetear el estado del formulario después de 3 segundos
-        setTimeout(() => {
-          formStatus.classList.add('hidden');
-        }, 3000);
-      } catch (error) {
-        // Mostrar mensaje de error
-        statusText.textContent = 'Error al enviar el mensaje. Por favor, intente nuevamente.';
-        formStatus.className = 'mb-4 text-red-600';
-      } finally {
-        // Rehabilitar el formulario
-        form.querySelectorAll('input, textarea, button').forEach((el) => {
-          el.removeAttribute('disabled');
-        });
-      }
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!statusText || !formStatus) return;
+    if (!captchaToken) {
+      statusText.textContent = 'Por favor, completa el hCaptcha.';
+      formStatus.className = 'mb-4 text-red-600';
+      formStatus.classList.remove('hidden');
+      return;
+    }
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    data.captchaToken = captchaToken;
+
+    form.querySelectorAll('input, textarea, button').forEach((el) => {
+      el.setAttribute('disabled', 'true');
     });
-  </script>
-  
+
+    formStatus.classList.remove('hidden');
+    statusText.textContent = 'Enviando mensaje...';
+    formStatus.className = 'mb-4 text-gray-600';
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.error) {
+        throw new Error(result.error);
+      }
+
+      (form).reset();
+       captchaToken = '';
+      statusText.textContent = '¡Mensaje enviado con éxito!';
+      formStatus.className = 'mb-4 text-green-600';
+
+      setTimeout(() => {
+        formStatus.classList.add('hidden');
+      }, 3000);
+    } catch (error) {
+      statusText.textContent = 'Error al enviar el mensaje. Por favor, intente nuevamente.';
+      formStatus.className = 'mb-4 text-red-600';
+    } finally {
+      form.querySelectorAll('input, textarea, button').forEach((el) => {
+        el.removeAttribute('disabled');
+      });
+    }
+  });
+</script>

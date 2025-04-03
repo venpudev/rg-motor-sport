@@ -1,48 +1,15 @@
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
 
-export const prerender = false;
-
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
-const keyCaptcha = import.meta.env.CAPTCHA_KEY;
+const secretKey = import.meta.env.SITE_KEY;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
-    const { name, email, phone, message } = data;
+    const { name, email, phone, message, recaptcha } = data;
 
-    const recaptchaURL = "https://www.google.com/recaptcha/api/siteverify";
-    const requestHeaders = {
-      "Content-Type": "application/x-www-form-urlencoded",
-    };
-
-    const requestBody = new URLSearchParams({
-      secret: keyCaptcha, // Esto puede ser una variable de entorno
-      response: data.recaptcha, // El token pasado desde el cliente
-    });
-
-    const response = await fetch(recaptchaURL, {
-      method: "POST",
-      headers: requestHeaders,
-      body: requestBody.toString(),
-    });
-
-    const responseData = await response.json();
-
-    if (!responseData.success) {
-      return new Response(
-        JSON.stringify({
-          error: "Falló la verificación de reCAPTCHA",
-          responseData,
-        }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
-
-    if (!name || !email || !message || !data.recaptcha) {
+    if (!name || !email || !message || !recaptcha) {
       return new Response(
         JSON.stringify({ error: "Faltan campos obligatorios" }),
         {
@@ -52,23 +19,21 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const { data: emailData, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: "rgaytan.asesorias@gmail.com", // cambiar por el email de la empresa
-      subject: `(Sitio web) Nuevo mensaje de contacto de ${name}`,
-      html: `
-        <h2>Nuevo mensaje de contacto sitio web</h2>
-        <p><strong>Nombre:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Teléfono:</strong> ${phone}</p>
-        <p><strong>Mensaje:</strong></p>
-        <p>${message}</p>
-      `,
+    // ✅ Verifica reCAPTCHA v2
+    const verifyURL = `https://www.google.com/recaptcha/api/siteverify`;
+    const response = await fetch(verifyURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        secret: secretKey,
+        response: recaptcha,
+      }),
     });
 
-    if (error) {
+    const verifyData = await response.json();
+    if (!verifyData.success) {
       return new Response(
-        JSON.stringify({ error: error.message, responseData }),
+        JSON.stringify({ error: "reCAPTCHA inválido", details: verifyData }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" },
@@ -76,14 +41,34 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    return new Response(
-      JSON.stringify({ success: true, data: emailData, responseData }),
-      {
-        status: 200,
+    // ✅ Envío de correo con Resend
+    const { data: emailData, error } = await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: "rgaytan.asesorias@gmail.com",
+      subject: `(Sitio web) Nuevo mensaje de contacto de ${name}`,
+      html: `
+        <h2>Nuevo mensaje</h2>
+        <p><strong>Nombre:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Teléfono:</strong> ${phone}</p>
+        <p><strong>Mensaje:</strong><br>${message}</p>
+      `,
+    });
+
+    if (error) {
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 400,
         headers: { "Content-Type": "application/json" },
-      }
-    );
-  } catch (error) {
+      });
+    }
+
+    console.log("Verificación reCAPTCHA:", verifyData);
+
+    return new Response(JSON.stringify({ success: true, data: emailData }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err) {
     return new Response(
       JSON.stringify({ error: "Error interno del servidor" }),
       {

@@ -4,7 +4,6 @@ import { VehicleCard } from "./VehiculeCard";
 import { SearchFilters } from "./SearchFilters";
 import { Pagination } from "./Pagination";
 import type { Datum } from "../../types/vehicule";
-import { SpinnerCircular } from "spinners-react/lib/esm/SpinnerCircular";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -96,13 +95,7 @@ export function VehicleCatalog() {
 
       {loading ? (
         <div className="flex justify-center mt-4">
-          <SpinnerCircular
-            size={69}
-            thickness={136}
-            speed={114}
-            color="rgba(172, 134, 57, 1)"
-            secondaryColor="rgba(172, 127, 57, 0.44)"
-          />
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
         </div>
       ) : (
         <>

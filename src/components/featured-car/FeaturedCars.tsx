@@ -3,7 +3,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules"; // Importa los módulos necesarios
 import { getFeaturedCars } from "../../lib/fetchVehicles";
 import { VehicleCard } from "../catalog/VehiculeCard";
-import { SpinnerCircular } from "spinners-react/lib/esm/SpinnerCircular";
 import type { Datum } from "../../types/vehicule";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -49,13 +48,7 @@ export const FeaturedCars: React.FC = () => {
 
         {loading ? (
           <div className="flex justify-center items-center h-96">
-            <SpinnerCircular
-              size={69}
-              thickness={136}
-              speed={114}
-              color="rgba(172, 134, 57, 1)"
-              secondaryColor="rgba(172, 127, 57, 0.44)"
-            />
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
           </div>
         ) : (
           <Swiper
