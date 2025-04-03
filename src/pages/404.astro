@@ -2,10 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 
 // Captura el parámetro `id` desde la URL, con astro params
-const { id } = Astro.params || {};
+// Obtiene el parámetro 'id' de la URL si existe, sino retorna un objeto vacío
+const { id } = Astro.params || {}; // Usado para manejar casos donde no hay ID en la URL
 console.log("ID:", id); // Esto te ayudará a depurar y confirmar si el ID está siendo capturado.
----
 
+---
 <Layout title="Vehículo no encontrado" description="Vehículo no encontrado">
   <main class="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center px-4">
     <div class="max-w-3xl bg-white shadow-md rounded-lg p-8 mt-10 border border-gray-200">
