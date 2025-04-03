@@ -7,7 +7,16 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [icon(), tailwind(), react()],
+  integrations: [
+    tailwind(),
+    react(),
+    icon({
+      include: {
+        // Incluir solo los iconos que necesitamos
+        mdi: ["*"],
+      },
+    }),
+  ],
   output: "server",
   adapter: vercel({
     imageService: true,
