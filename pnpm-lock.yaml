@@ -56,6 +56,10 @@ importers:
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.17
+    devDependencies:
+      '@types/react-google-recaptcha':
+        specifier: ^2.1.9
+        version: 2.1.9
 
 packages:
 
@@ -694,6 +698,9 @@ packages:
     resolution: {integrity: sha512-4fSQ8vWFkg+TGhePfUzVmat3eC14TXYSsiiDSLI0dVLsrm9gZFABjPy/Qu6TKgl1tq1Bu1yDsuQgY3A3DOjCcg==}
     peerDependencies:
       '@types/react': ^19.0.0
+
+  '@types/react-google-recaptcha@2.1.9':
+    resolution: {integrity: sha512-nT31LrBDuoSZJN4QuwtQSF3O89FVHC4jLhM+NtKEmVF5R1e8OY0Jo4//x2Yapn2aNHguwgX5doAq8Zo+Ehd0ug==}
 
   '@types/react@19.0.10':
     resolution: {integrity: sha512-JuRQ9KXLEjaUNjTWpzuR231Z2WpIwczOkBEIvbHNCzQefFIT0L8IqE6NV6ULLyC1SI/i234JnDoMkfg+RjQj2g==}
@@ -3235,6 +3242,10 @@ snapshots:
       undici-types: 6.20.0
 
   '@types/react-dom@19.0.4(@types/react@19.0.10)':
+    dependencies:
+      '@types/react': 19.0.10
+
+  '@types/react-google-recaptcha@2.1.9':
     dependencies:
       '@types/react': 19.0.10
 
