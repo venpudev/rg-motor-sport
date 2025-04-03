@@ -76,8 +76,6 @@ const apiCatpcha = import.meta.env.SITE_KEY;
   const formStatus = document.getElementById('form-status');
   const statusText = formStatus?.querySelector('p');
 
-  let captchaToken = '';
-
   window.onCaptchaSuccess = function(token) {
     window.captchaToken = token;
     const formStatus = document.getElementById('form-status');
@@ -103,7 +101,8 @@ const apiCatpcha = import.meta.env.SITE_KEY;
     e.preventDefault();
 
     if (!statusText || !formStatus) return;
-    if (!captchaToken) {
+    
+    if (!window.captchaToken) {
       statusText.textContent = 'Por favor, completa el hCaptcha.';
       formStatus.className = 'mb-4 text-red-600';
       formStatus.classList.remove('hidden');
