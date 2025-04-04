@@ -16,11 +16,11 @@ interface Props {
 const siteUrl = 'https://www.rgmotorsport.cl';
 
 const { slug } = Astro.params;
-const { title, description, image = '/images/rg-social.png' } = Astro.props;
+const { title, description, image = '/index.og' } = Astro.props;
 
 // Aseguramos que la URL de la imagen sea absoluta
 const getFullImageUrl = (imageUrl: string) => {
-    if (!imageUrl) return `${siteUrl}/images/rg-social.png`;
+    if (!imageUrl) return `${siteUrl}/index.og`;
     if (imageUrl.startsWith('http')) return imageUrl;
     return `${siteUrl}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
 };
