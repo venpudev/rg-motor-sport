@@ -7,12 +7,16 @@ import {ImageSlider} from '../components/image-slider/ImageSlider'
 import ViewStock from '../components/banners/ViewStock.astro';
 import Services from '../components/Services.astro';
 import Consignacion from '../components/Consignacion.astro';
+
+  const metadata = {
+    title:"RG Motor Sports", 
+    description:"Venta de vehiculos usados en Antofagasta, Chile",
+    image:'https://www.rgmotorsport.cl/images/logo/LogoRG.webp'
+  }
 ---
 
-<Layout 
-title="RG Motor Sports" 
-description="Venta de vehiculos usados en Antofagasta, Chile"
-image='/images/rg-social.png'>
+<Layout {...metadata}
+>
   <main>
    <ImageSlider client:load/>
      <FeaturedCars client:load/>
