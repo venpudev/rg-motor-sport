@@ -29,11 +29,9 @@ const displayPrice = formatPrice(vehicle.price);
 const seoData = {
   title: `${vehicle.name} - RG Motor Sport`,
   description: `${vehicle.name} - ${displayPrice} - ${vehicle.miles}km - ${vehicle.transmission} - ${vehicle.fuelType}. Disponible en RG Motor Sport, Antofagasta.`,
-  image: vehicle.imageUrl || vehicle.imageGallery?.[0]?.imageUrl || '/images/social-share.webp'
+  image: vehicle.imageUrl || vehicle.imageGallery?.[0]?.imageUrl
 };
 
-// Formateamos el precio para mostrar
-const formattedPrice = formatPrice(vehicle.price);
 ---
 
 <Layout {...seoData}>
@@ -90,8 +88,6 @@ const formattedPrice = formatPrice(vehicle.price);
                 </div>
               </div>
 
-              
-          
               <!-- Llamada a la acción -->
               <div class="border-t border-gray-700 pt-6">
                 <div class="pb-5">

@@ -11,7 +11,7 @@ export function VehicleCatalog() {
   const [vehicles, setVehicles] = useState<Datum[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | "">("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -44,27 +44,40 @@ export function VehicleCatalog() {
   const filteredVehicles = useMemo(() => {
     let filtered = [...vehicles];
 
-    // Apply search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (v) =>
-          v.name.toLowerCase().includes(query) ||
-          v.brand.toLowerCase().includes(query)
-      );
+    // Función segura para filtrar por texto
+    function filterBySearchQuery(items: any[], searchQuery: string): any[] {
+      if (!searchQuery?.trim()) return items;
+
+      const query = searchQuery.toLowerCase().trim();
+
+      return items.filter((item) => {
+        const name = item.name?.toLowerCase() || "";
+        const brand = item.brand?.toLowerCase() || "";
+        return name.includes(query) || brand.includes(query);
+      });
     }
 
-    // Apply brand filter
+    // Aplicar filtro de búsqueda usando la función segura
+    filtered = filterBySearchQuery(filtered, searchQuery);
+
+    // Aplicar filtro por marca
     if (selectedBrand) {
       filtered = filtered.filter((v) => v.brand === selectedBrand);
     }
 
-    // Apply sort
-    filtered.sort((a, b) => {
-      const priceA = parseFloat(a.price) || 0;
-      const priceB = parseFloat(b.price) || 0;
-      return sortOrder === "desc" ? priceB - priceA : priceA - priceB;
-    });
+    // Solo ordenar por precio si el usuario explícitamente selecciona un orden
+    if (sortOrder !== "") {
+      filtered.sort((a, b) => {
+        const priceA = parseFloat(a.price) || 0;
+        const priceB = parseFloat(b.price) || 0;
+        return sortOrder === "desc" ? priceB - priceA : priceA - priceB;
+      });
+    } else {
+      // Mantener el orden original del array
+      filtered.sort((a, b) => {
+        return vehicles.indexOf(a) - vehicles.indexOf(b);
+      });
+    }
 
     return filtered;
   }, [vehicles, searchQuery, selectedBrand, sortOrder]);
@@ -99,11 +112,29 @@ export function VehicleCatalog() {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-col-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {paginatedVehicles.map((vehicle) => {
-              return <VehicleCard key={vehicle.id} vehicle={vehicle} />;
-            })}
-          </div>
+          {paginatedVehicles.length === 0 ? (
+            <div className="text-center py-10">
+              <p className="text-2xl text-gray-600">
+                No se encontraron vehículos que coincidan con tu búsqueda
+              </p>
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedBrand("");
+                  setSortOrder("desc");
+                }}
+                className="mt-4 px-6 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+              >
+                Limpiar filtros
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-col-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {paginatedVehicles.map((vehicle) => {
+                return <VehicleCard key={vehicle.id} vehicle={vehicle} />;
+              })}
+            </div>
+          )}
 
           {filteredVehicles.length > ITEMS_PER_PAGE && (
             <Pagination
