@@ -37,7 +37,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const { data: emailData, error } = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: ["rolando@wildcars.cl"],
+      to: ["rolando@massant.cl"],
       cc: ["maravena@eserp.cl"], // cambiar por el email de la empresa
       subject: `(Sitio web) Nuevo mensaje de contacto de ${name}`,
       html: htmlContent,
