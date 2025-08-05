@@ -61,8 +61,8 @@
 ### **1. Clonar el Repositorio**
 
 ```bash
-git clone https://github.com/sebahernandez/wildcars.git
-cd wildcars
+git clone https://github.com/sebahernandez/massant.git
+cd massant
 ```
 
 ### **2. Instalar Dependencias**
@@ -99,7 +99,7 @@ El proyecto estará disponible en `http://localhost:4321` 🎉
 ## 📁 **Estructura del Proyecto**
 
 ```text
-wildcars/
+massant/
 ├── 📁 public/                    # Archivos estáticos
 │   ├── favicon.svg
 │   ├── logowildars.webp         # Logo principal de Wildcars
@@ -250,8 +250,8 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 ## 📞 **Contacto**
 
-- **Sitio Web**: [Wildcars](https://www.wildcars.cl)
-- **Email**: contacto@wildcars.cl
+- **Sitio Web**: [Wildcars](https://www.massant.cl)
+- **Email**: contacto@massant.cl
 - **Developer**: [@sebahernandez](https://github.com/sebahernandez)
 - **Filosofía**: "Donde los buenos autos encuentran buenos dueños"
 
