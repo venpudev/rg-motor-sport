@@ -1,0 +1,359 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CarCard from '../components/CarCard.astro';
+import { cars } from '../data/cars.js';
+
+// Get unique values for filters
+const brands = [...new Set(cars.map(car => car.brand))].sort();
+const years = [...new Set(cars.map(car => car.year))].sort((a, b) => b - a);
+const fuelTypes = [...new Set(cars.map(car => car.fuel))].sort();
+const transmissions = [...new Set(cars.map(car => car.transmission))].sort();
+
+// Price range
+const minPrice = Math.min(...cars.map(car => car.price));
+const maxPrice = Math.max(...cars.map(car => car.price));
+---
+
+<Layout title="Catálogo de Vehículos - GOCARS">
+  <main class="min-h-screen bg-neutral-50">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-800 text-white">
+      <div class="container mx-auto px-4 py-16">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-5xl font-bold font-display mb-6 animate-fade-in">
+            Catálogo de Vehículos
+          </h1>
+          <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto animate-slide-up">
+            Encuentra el vehículo perfecto para ti. Más de 12 opciones disponibles con las mejores condiciones de financiamiento.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4 text-primary-200">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Garantía Incluida</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Financiamiento Disponible</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Prueba de Manejo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="bg-white shadow-sm border-b">
+      <div class="container mx-auto px-4 py-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <h2 class="text-2xl font-bold text-neutral-900">
+            Filtrar Vehículos
+          </h2>
+          <button id="clearFilters" class="text-primary-600 hover:text-primary-700 font-medium flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Limpiar Filtros
+          </button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4" id="filters">
+          <!-- Brand Filter -->
+          <div>
+            <label for="brandFilter" class="block text-sm font-medium text-neutral-700 mb-2">Marca</label>
+            <select id="brandFilter" class="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white">
+              <option value="">Todas las marcas</option>
+              {brands.map(brand => (
+                <option value={brand}>{brand}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Year Filter -->
+          <div>
+            <label for="yearFilter" class="block text-sm font-medium text-neutral-700 mb-2">Año</label>
+            <select id="yearFilter" class="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white">
+              <option value="">Todos los años</option>
+              {years.map(year => (
+                <option value={year}>{year}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Fuel Filter -->
+          <div>
+            <label for="fuelFilter" class="block text-sm font-medium text-neutral-700 mb-2">Combustible</label>
+            <select id="fuelFilter" class="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white">
+              <option value="">Todos</option>
+              {fuelTypes.map(fuel => (
+                <option value={fuel}>{fuel}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Transmission Filter -->
+          <div>
+            <label for="transmissionFilter" class="block text-sm font-medium text-neutral-700 mb-2">Transmisión</label>
+            <select id="transmissionFilter" class="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white">
+              <option value="">Todas</option>
+              {transmissions.map(transmission => (
+                <option value={transmission}>{transmission}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- Price Range -->
+          <div class="lg:col-span-2">
+            <label class="block text-sm font-medium text-neutral-700 mb-2">Rango de Precio</label>
+            <div class="flex items-center space-x-4">
+              <input 
+                type="range" 
+                id="minPriceRange" 
+                min={minPrice} 
+                max={maxPrice} 
+                value={minPrice}
+                class="flex-1 h-2 bg-neutral-200 rounded-lg appearance-none cursor-pointer slider"
+              />
+              <input 
+                type="range" 
+                id="maxPriceRange" 
+                min={minPrice} 
+                max={maxPrice} 
+                value={maxPrice}
+                class="flex-1 h-2 bg-neutral-200 rounded-lg appearance-none cursor-pointer slider"
+              />
+            </div>
+            <div class="flex justify-between mt-2 text-sm text-neutral-600">
+              <span id="minPriceLabel">$13.990.000</span>
+              <span id="maxPriceLabel">$32.900.000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="container mx-auto px-4 py-8">
+      <div class="flex flex-wrap items-center justify-between mb-8">
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">
+            Resultados: <span id="resultsCount">{cars.length}</span> vehículos encontrados
+          </h3>
+          <p class="text-neutral-600 mt-1">Ordenados por relevancia</p>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+          <label for="sortBy" class="text-sm font-medium text-neutral-700">Ordenar por:</label>
+          <select id="sortBy" class="px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white">
+            <option value="relevance">Relevancia</option>
+            <option value="price-low">Precio: Menor a Mayor</option>
+            <option value="price-high">Precio: Mayor a Menor</option>
+            <option value="year-new">Año: Más Nuevo</option>
+            <option value="year-old">Año: Más Antiguo</option>
+            <option value="mileage-low">Kilometraje: Menor</option>
+            <option value="mileage-high">Kilometraje: Mayor</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Cars Grid -->
+      <div id="carsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {cars.map(car => (
+          <CarCard car={car} />
+        ))}
+      </div>
+
+      <!-- No Results Message -->
+      <div id="noResults" class="hidden text-center py-16">
+        <div class="max-w-md mx-auto">
+          <svg class="w-16 h-16 mx-auto text-neutral-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.5-1.01-6-2.709M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+          </svg>
+          <h3 class="text-xl font-semibold text-neutral-900 mb-2">No se encontraron vehículos</h3>
+          <p class="text-neutral-600 mb-6">Prueba ajustando los filtros para ver más resultados</p>
+          <button id="clearFiltersNoResults" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+            Limpiar Filtros
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-gradient-to-r from-primary-600 to-accent-500 text-white">
+      <div class="container mx-auto px-4 py-16">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-bold font-display mb-6">
+            ¿No encontraste lo que buscas?
+          </h2>
+          <p class="text-xl text-white/90 mb-8">
+            Nuestro equipo puede ayudarte a encontrar el vehículo perfecto según tus necesidades específicas.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contacto" class="bg-white text-primary-600 hover:bg-neutral-100 px-8 py-4 rounded-lg font-semibold transition-colors inline-flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              Contáctanos
+            </a>
+            <a href="https://wa.me/56912345678" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors inline-flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.515z"/>
+              </svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  // Car data for filtering
+  const carsData = [
+    // This would be populated with the actual car data
+    // For now, we'll implement the filtering logic
+  ];
+
+  // DOM Elements
+  const brandFilter = document.getElementById('brandFilter');
+  const yearFilter = document.getElementById('yearFilter');
+  const fuelFilter = document.getElementById('fuelFilter');
+  const transmissionFilter = document.getElementById('transmissionFilter');
+  const minPriceRange = document.getElementById('minPriceRange');
+  const maxPriceRange = document.getElementById('maxPriceRange');
+  const minPriceLabel = document.getElementById('minPriceLabel');
+  const maxPriceLabel = document.getElementById('maxPriceLabel');
+  const sortBy = document.getElementById('sortBy');
+  const carsGrid = document.getElementById('carsGrid');
+  const resultsCount = document.getElementById('resultsCount');
+  const noResults = document.getElementById('noResults');
+  const clearFilters = document.getElementById('clearFilters');
+  const clearFiltersNoResults = document.getElementById('clearFiltersNoResults');
+
+  // Format price in CLP
+  function formatPrice(price) {
+    return new Intl.NumberFormat('es-CL', {
+      style: 'currency',
+      currency: 'CLP',
+      minimumFractionDigits: 0
+    }).format(price);
+  }
+
+  // Update price labels
+  function updatePriceLabels() {
+    minPriceLabel.textContent = formatPrice(parseInt(minPriceRange.value));
+    maxPriceLabel.textContent = formatPrice(parseInt(maxPriceRange.value));
+  }
+
+  // Filter and sort cars
+  function filterCars() {
+    const cards = Array.from(carsGrid.children);
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const brand = card.querySelector('.text-primary-600').textContent;
+      const year = parseInt(card.querySelector('.text-neutral-500').textContent);
+      const priceText = card.querySelector('.text-2xl').textContent;
+      const price = parseInt(priceText.replace(/[$.]/g, '').replace(/\s/g, ''));
+      
+      // Get filter values
+      const selectedBrand = brandFilter.value;
+      const selectedYear = yearFilter.value;
+      const selectedFuel = fuelFilter.value;
+      const selectedTransmission = transmissionFilter.value;
+      const minPrice = parseInt(minPriceRange.value);
+      const maxPrice = parseInt(maxPriceRange.value);
+
+      // Check if card matches filters
+      const matchesBrand = !selectedBrand || brand === selectedBrand;
+      const matchesYear = !selectedYear || year === parseInt(selectedYear);
+      const matchesPrice = price >= minPrice && price <= maxPrice;
+      
+      const isVisible = matchesBrand && matchesYear && matchesPrice;
+      
+      if (isVisible) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Update results count
+    resultsCount.textContent = visibleCount;
+    
+    // Show/hide no results message
+    if (visibleCount === 0) {
+      carsGrid.style.display = 'none';
+      noResults.classList.remove('hidden');
+    } else {
+      carsGrid.style.display = 'grid';
+      noResults.classList.add('hidden');
+    }
+  }
+
+  // Clear all filters
+  function clearAllFilters() {
+    brandFilter.value = '';
+    yearFilter.value = '';
+    fuelFilter.value = '';
+    transmissionFilter.value = '';
+    minPriceRange.value = minPriceRange.min;
+    maxPriceRange.value = maxPriceRange.max;
+    sortBy.value = 'relevance';
+    updatePriceLabels();
+    filterCars();
+  }
+
+  // Event listeners
+  brandFilter.addEventListener('change', filterCars);
+  yearFilter.addEventListener('change', filterCars);
+  fuelFilter.addEventListener('change', filterCars);
+  transmissionFilter.addEventListener('change', filterCars);
+  minPriceRange.addEventListener('input', () => {
+    updatePriceLabels();
+    filterCars();
+  });
+  maxPriceRange.addEventListener('input', () => {
+    updatePriceLabels();
+    filterCars();
+  });
+  sortBy.addEventListener('change', filterCars);
+  clearFilters.addEventListener('click', clearAllFilters);
+  clearFiltersNoResults.addEventListener('click', clearAllFilters);
+
+  // Initialize
+  updatePriceLabels();
+</script>
+
+<style>
+  /* Custom slider styles */
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #1e40af;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #1e40af;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+</style>
