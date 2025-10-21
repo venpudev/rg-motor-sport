@@ -1,0 +1,79 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Whatsapp from '../components/whatsapp/Whatsapp.astro';
+
+// Supports weights 100-900
+import '@fontsource-variable/montserrat';
+
+interface Props {
+    title: string;
+    description: string;
+    image?: string;
+}
+const { title, description, image } = Astro.props;
+// URL base del sitio
+const { slug } = Astro.params;
+const siteUrl = 'https://www.rgmotorsport.cl';
+const url = `${siteUrl}${slug ? `/${slug}` : ''}`;
+/* 
+const { slug } = Astro.params;
+const { title, description, image = '/index.og' } = Astro.props;
+
+// Aseguramos que la URL de la imagen sea absoluta
+const getFullImageUrl = (imageUrl: string) => {
+    if (!imageUrl) return `${siteUrl}/index.og`;
+    if (imageUrl.startsWith('http')) return imageUrl;
+    return `${siteUrl}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+};
+
+const url = `${siteUrl}${slug ? `/${slug}` : ''}`;
+const ogImage = getFullImageUrl(image); */
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+        <meta property="og:image:alt" content={title} />
+        <meta property="og:site_name" content="RG Motor Sport" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={url} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={image} />
+        <meta name="twitter:image:alt" content={title} />
+        
+        <link rel="canonical" href={url} />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      
+        <title>{title}</title>
+    </head>
+    <body>
+        <Header/>
+        <Whatsapp />
+        <slot />
+        <Footer />
+    </body>
+</html>
+
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: white;
+        font-family: 'Montserrat Variable', sans-serif;
+    }
+</style>

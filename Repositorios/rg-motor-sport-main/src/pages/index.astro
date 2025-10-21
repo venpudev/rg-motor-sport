@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Testimonials from '../components/testimonials/Testimonials.astro';
+import Maps from '../components/maps/Maps.astro';
+import {FeaturedCars} from '../components/featured-car/FeaturedCars'
+import {ImageSlider} from '../components/image-slider/ImageSlider'
+import ViewStock from '../components/banners/ViewStock.astro';
+import Services from '../components/Services.astro';
+import Consignacion from '../components/Consignacion.astro';
+
+  const metadata = {
+    title:"RG Motor Sports - Venta de autos en Antofagasta", 
+    description:"RG Motor Sports, tu concesionario de confianza en Antofagasta. Ofrecemos venta de vehículos usados certificados, servicio técnico especializado y atención personalizada. Visítanos en Av. Cerro Paranal 375 o contáctanos al +56 9 6599 1691.",
+    image:'https://www.rgmotorsport.cl/images/logo/LogoRG.webp'
+  }
+---
+
+<Layout {...metadata}
+>
+  <main>
+   <ImageSlider client:load/>
+     <FeaturedCars client:load/>
+     <ViewStock />
+     <Services />
+    <Consignacion />
+   <Testimonials />
+   <Maps />
+  </main>
+</Layout>
+
+
+

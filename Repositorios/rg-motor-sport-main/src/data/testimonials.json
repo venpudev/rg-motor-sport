@@ -1,0 +1,22 @@
+{
+  "testimonials": [
+    {
+      "name": "caatalina.vega",
+      "text": "Gracias por tu amabilidad Ricardo, estamos muy contentos con tu excelente atención!",
+      "image": "https://placehold.co/100x100?text=CV",
+      "rating": 5
+    },
+    {
+      "name": "Danilo_seb17",
+      "text": "Estimado, agradezco la gestión realizada en la venta del vehículo, servicio 100% recomendable. Muy atento y preocupado de todos los aspectos, sin dudar volveríamos a contratar sus servicios Saludos!!",
+      "image": "https://placehold.co/100x100?text=DS",
+      "rating": 5
+    },
+    {
+      "name": "Laaj8415",
+      "text": "Excelente servicio, recibí una perfecta asesoría, un trato personalizado y lo mejor sin moverme del escritorio, pago inmediato. Calidad y seriedad garantizada!! Muchas gracias",
+      "image": "https://placehold.co/100x100?text=LJ",
+      "rating": 5
+    }
+  ]
+}
